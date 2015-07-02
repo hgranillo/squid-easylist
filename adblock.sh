@@ -1,4 +1,5 @@
 #!/bin/bash
+
 tmp_dir=$(mktemp -d)
 
 rm_temp() {
@@ -6,7 +7,7 @@ rm -rf "${tmp_dir}"
 rm /tmp/adblock.sed && return 0;
 }
 
-lista=/etc/squid3/adblock.acl
+list=/etc/squid3/adblock.acl
 
 cat > /tmp/adblock.sed <<'EOF'
 /.*\$.*/d;
@@ -27,9 +28,10 @@ s/\\|\\|\(.*\)/\.\1/g;
 /^$/d;
 EOF
 
-mv $lista "$lista".old
+mv $list "$list".old
 cd $tmp_dir
-wget -nv https://easylist-downloads.adblockplus.org/easylist.txt || $(mv "$lista".old $lista && rm_temp)
-sed -f /tmp/adblock.sed $(ls) >> $lista
+wget -nv https://easylist-downloads.adblockplus.org/easylist.txt || $(mv "$list".old $list && rm_temp)
+sed -f /tmp/adblock.sed $(ls) >> $list
 
+#cleaning
 rm_temp
