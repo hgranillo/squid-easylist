@@ -33,5 +33,5 @@ cd $tmp_dir
 wget -nv https://easylist-downloads.adblockplus.org/easylist.txt || $(mv "$list".old $list && rm_temp)
 sed -f /tmp/adblock.sed $(ls) >> $list
 
-#cleaning
+#cleaning temps
 rm_temp
